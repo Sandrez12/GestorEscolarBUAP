@@ -18,12 +18,6 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chmod -R 775 storage bootstrap/cache
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
-
-RUN php artisan migrate --force
-
 RUN a2enmod rewrite
 
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
