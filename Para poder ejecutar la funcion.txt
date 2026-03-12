@@ -1,0 +1,23 @@
+Son las dependencias que se usaron para la función de importación:
+
+Instalar dependencias de PHP
+composer install --ignore-platform-req=ext-zip
+
+Instalar dependencias de Node
+npm install
+
+Estos los datos de la base de datos que utilice
+DB_DATABASE=sistema_academico
+DB_USERNAME=root
+DB_PASSWORD=tu_contraseña (aquí es la contraseña del ROOT)
+
+Generación de la clave de aplicación 
+php artisan key:generate
+
+Correr las migraciones
+php artisan migrate
+
+Levantar los servidores
+php artisan serve
+npm run dev
+(se tienen que ejecutar ambas, yo lo hice en 2 terminales distintas)
