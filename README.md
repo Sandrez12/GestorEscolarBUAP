@@ -1,117 +1,64 @@
-# Sistema Académico
+# Gestor Escolar BUAP
 
-Proyecto desarrollado con **Laravel** para la gestión básica de materias, grupos y estudiantes dentro de una institución académica.
+Sistema académico web para profesores y estudiantes de la BUAP. Permite administrar materias, grupos y estudiantes, inscribir estudiantes en grupos y consultar la carga académica desde un panel con autenticación.
 
-El sistema permite administrar información académica y registrar la relación entre estudiantes y grupos.
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-supported-4169E1?logo=postgresql&logoColor=white)
 
----
+## Funcionalidades
 
-# Descripción del Proyecto
+- **Autenticación** de usuarios (registro, inicio de sesión, recuperación de contraseña y perfil) con Laravel Breeze.
+- **Panel principal** con la carga académica.
+- **Materias:** crear, editar, listar y eliminar.
+- **Grupos:** crear grupos asociados a una materia y consultar su detalle.
+- **Estudiantes:** registro y listado.
+- **Inscripciones:** asociar estudiantes a grupos y ver quiénes están inscritos.
+- Interfaz con identidad institucional BUAP.
 
-Este sistema académico permite realizar operaciones básicas de gestión educativa:
+## Tecnologías
 
-* Registro de materias
-* Creación de grupos académicos
-* Registro de estudiantes
-* Inscripción de estudiantes en grupos
-* Autenticación de usuarios
+| Capa | Tecnología |
+|---|---|
+| Backend | PHP 8.2+, Laravel 12 (arquitectura MVC) |
+| Frontend | Blade, Tailwind CSS, Vite |
+| Base de datos | MySQL, PostgreSQL o SQLite (configurable en `.env`) |
+| Pruebas | Pest |
+| Despliegue | Docker + Apache (listo para Render), configuración para Vercel |
 
-El sistema está desarrollado utilizando **arquitectura MVC** proporcionada por Laravel.
+## Estructura del proyecto
 
----
-
-# Tecnologías Utilizadas
-
-El proyecto utiliza las siguientes herramientas:
-
-* **Laravel** – Framework principal del backend
-* **PHP** – Lenguaje de programación
-* **MySQL** – Base de datos
-* **Laravel Breeze** – Sistema de autenticación
-* **Node.js** – Compilación de recursos frontend
-* **Git** – Control de versiones
-
----
-
-# Requisitos del Sistema
-
-Para ejecutar el proyecto es necesario tener instalado:
-
-* **PHP** 8.1 o superior
-* **Composer**
-* **Node.js**
-* **MySQL**
-* **Git**
-
-Opcionalmente se recomienda usar:
-
-* **Laragon** o **XAMPP** para facilitar el entorno de desarrollo.
-
----
-
-# Instalación del Proyecto
-
-### 1. Clonar el repositorio
-
-```bash
-git clone URL_DEL_REPOSITORIO
+```
+app/
+  Http/Controllers/   Materia, Grupo, Estudiante, Dashboard, Auth, Profile
+  Models/             User, Materia, Grupo, Estudiante, GrupoEstudiante
+database/migrations/  Esquema: materias, grupos, estudiantes y grupo_estudiantes
+resources/views/      Blade: dashboard, materias, grupos, estudiantes, auth
+routes/web.php        Rutas protegidas por autenticación
+tests/                Pruebas con Pest
+Dockerfile            Imagen de producción (PHP 8.4 + Apache)
 ```
 
-Entrar al directorio del proyecto:
+## Instalación local
+
+Requisitos: PHP 8.2+, Composer, Node.js y una base de datos (MySQL, PostgreSQL o SQLite).
 
 ```bash
-cd sistema-academico
-```
+git clone https://github.com/Sandrez12/GestorEscolarBUAP.git
+cd GestorEscolarBUAP
 
----
-
-# Instalar dependencias del backend
-
-Instalar las dependencias de **Laravel** con:
-
-```bash
 composer install
-```
-
----
-
-# Instalar dependencias del frontend
-
-Instalar paquetes de **Node.js**:
-
-```bash
 npm install
-```
 
-Compilar recursos:
-
-```bash
-npm run dev
-```
-
----
-
-# Configurar variables de entorno
-
-Crear el archivo `.env`:
-
-```bash
 cp .env.example .env
-```
-
-Luego generar la clave del sistema:
-
-```bash
 php artisan key:generate
 ```
 
----
+Configura la base de datos en `.env` (por defecto usa SQLite). Ejemplo con MySQL:
 
-# Configurar base de datos
-
-En el archivo `.env` configurar la conexión a **MySQL**:
-
-```
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -120,128 +67,39 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Crear la base de datos manualmente en MySQL con el nombre:
-
-```
-sistema_academico
-```
-
----
-
-# Ejecutar migraciones
-
-Crear las tablas del sistema:
+Luego crea las tablas y levanta el proyecto:
 
 ```bash
 php artisan migrate
+npm run dev        # en una terminal
+php artisan serve  # en otra terminal
 ```
 
----
+Abre `http://127.0.0.1:8000`.
 
-# Ejecutar el servidor
-
-Iniciar el servidor de desarrollo:
+## Pruebas
 
 ```bash
-php artisan serve
+php artisan test
 ```
 
-Abrir en el navegador:
+## Despliegue con Docker
 
-```
-http://127.0.0.1:8000
-```
-
----
-
-# Funcionalidades del Sistema
-
-El sistema permite realizar las siguientes operaciones:
-
-### Gestión de Materias
-
-* Crear materias
-* Editar materias
-* Listar materias
-
-### Gestión de Grupos
-
-* Crear grupos
-* Asociar grupos a materias
-* Listar grupos
-
-### Gestión de Estudiantes
-
-* Registrar estudiantes
-* Editar estudiantes
-* Listar estudiantes
-
-### Inscripción a Grupos
-
-* Asociar estudiantes a grupos
-* Visualizar estudiantes inscritos
-
----
-
-# Estructura General del Proyecto
-
-El proyecto sigue la estructura estándar de **Laravel**:
-
-```
-app/
-   Models/
-   Http/
-      Controllers/
-
-database/
-   migrations/
-
-resources/
-   views/
-
-routes/
-   web.php
-```
-
----
-
-# Flujo de Trabajo con Git
-
-Cada integrante debe trabajar en su propia rama.
-
-Crear una rama:
+El `Dockerfile` instala las dependencias de producción y arranca Apache; `start.sh` limpia la caché y ejecuta las migraciones al iniciar. Define estas variables de entorno en tu proveedor (por ejemplo Render): `APP_KEY`, `APP_ENV=production`, `APP_DEBUG=false` y las `DB_*` de tu base de datos.
 
 ```bash
-git checkout -b nombre-rama
+docker build -t gestor-escolar .
+docker run -p 8080:80 --env-file .env gestor-escolar
 ```
 
-Guardar cambios:
+## Equipo
 
-```bash
-git add .
-git commit -m "Descripción de cambios"
-git push origin nombre-rama
-```
+Proyecto desarrollado para la asignatura **Modelos de Desarrollo Web**.
 
----
+- Andrés Felipe Joya Buitrago
+- Emily Nicoll David Villadiego
+- Jessica Juarez
 
-# Equipo de Desarrollo
+## Licencia
 
-Proyecto desarrollado por estudiantes de la asignatura:
-
-**Modelos de Desarrollo Web**
-
-Integrantes del equipo:
-
-* Andres Felipe Joya Buitrago
-* Emily Nicoll David Villadiego
-* Jessica Juarez
-* 
-
----
-
-# Licencia
-
-Proyecto desarrollado con fines académicos.
-
-Con eso tu repositorio se ve **mucho más profesional**.
+Proyecto con fines académicos.
